@@ -24,6 +24,7 @@ Imports:
     tibble,
     readr,
     pkgload,
+    Cairo,
     shinyWidgets
 Encoding: UTF-8
 LazyData: true

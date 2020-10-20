@@ -19,8 +19,7 @@ app_ui <- function(request) {
       # navigation bar
       navbar = bs4DashNavbar(
         skin = "dark",
-        status = "primary"
-      ),
+        status = "primary"),
       
       # left sidebar
       sidebar = bs4DashSidebar(
@@ -82,7 +81,7 @@ app_ui <- function(request) {
           target = "_blank",
           "Méthode IDEA Version 4"
         ),
-        right_text = "(c) David Carayon (INRAE) 2020"
+        right_text = HTML("<img src='www/bandeau.png' style='width:647.69;height:92.307px;'>")
       )
     )
   )
