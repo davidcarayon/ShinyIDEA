@@ -1,0 +1,26 @@
+{
+    "id": "CE3B6DD1",
+    "path": "~/Bureau/ShinyIDEA2/ShinyIDEA2/R/mod_analyse_indiv.R",
+    "project_path": "R/mod_analyse_indiv.R",
+    "type": "r_source",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1603117524170.0,
+    "source_on_save": false,
+    "relative_order": 3,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "320,6",
+        "scrollLine": "136"
+    },
+    "folds": "130|41|132|2|\n136|40|140|4|\n141|40|145|4|\n146|40|150|4|\n151|35|158|4|\n161|35|174|4|\n177|38|191|4|\n192|38|206|4|\n207|38|221|4|\n222|38|236|4|\n237|38|251|4|\n253|37|285|4|\n288|37|320|4|\n",
+    "lastKnownWriteTime": 1603200534,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1603200534506,
+    "read_only": false,
+    "read_only_alternatives": []
+}

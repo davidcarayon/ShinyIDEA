@@ -1,0 +1,27 @@
+{
+    "id": "AFBB6DCD",
+    "path": "~/Bureau/ShinyIDEA2/ShinyIDEA2/R/mod_welcome.R",
+    "project_path": "R/mod_welcome.R",
+    "type": "r_source",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1603181317650.0,
+    "source_on_save": false,
+    "relative_order": 7,
+    "properties": {
+        "tempName": "Untitled1",
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "22,194",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1603198472,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1603198472672,
+    "read_only": false,
+    "read_only_alternatives": []
+}

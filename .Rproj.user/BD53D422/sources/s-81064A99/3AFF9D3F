@@ -1,0 +1,26 @@
+{
+    "id": "3AFF9D3F",
+    "path": "~/Bureau/ShinyIDEA2/ShinyIDEA2/R/golem_utils_server.R",
+    "project_path": "R/golem_utils_server.R",
+    "type": "r_source",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1603175924828.0,
+    "source_on_save": false,
+    "relative_order": 6,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "75,42",
+        "scrollLine": "52"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1603195506,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1603195506688,
+    "read_only": false,
+    "read_only_alternatives": []
+}

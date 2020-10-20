@@ -1,0 +1,14 @@
+library(plotly)
+
+data <- IDEAdata$dataset %>% distinct(composante,composante_value)
+
+
+
+
+fig <- plot_ly(x = c(20, 14, 23), y = c('giraffes', 'orangutans', 'monkeys'), type = 'bar', orientation = 'h')
+
+fig
+
+plot_ly(data, x = ~composante_value, y = ~ composante, type = 'bar', orientation = 'h',
+        marker = list(color = c('yellow','yellow','yellow','blue','yellow','yellow','yellow','yellow','yellow','red','yellow','yellow','yellow')))
+

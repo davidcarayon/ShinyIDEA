@@ -1,0 +1,21 @@
+library(shinydashboard)
+ui <- dashboardPage(
+  dashboardHeader(title = "Boxes"),
+  dashboardSidebar(),
+  dashboardBody(
+      box(
+        status = "primary",
+        title = "Histogram", 
+        textInput("text1", "Text input:")
+      ),
+      box(
+        status = "primary",
+        title = "Inputs",
+        "Box content here", br(), "More box content",
+        sliderInput("slider", "Slider input:", 1, 100, 50),
+        textInput("text2", "Text input:")
+    )
+  )
+)
+server <- function(input, output) {}
+shinyApp(ui, server)
