@@ -1,4 +1,4 @@
-## Présentation
+## Bienvenue sur ShinyIDEA !
 
 ShinyIDEA est une application web mettant à disposition de tout utilisateur de la méthode IDEA4 une collection d'outils et d'interfaces graphiques permettant un diagnostic synthétique et compréhensible d'une ou plusieurs exploitations agricoles.
 

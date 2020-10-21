@@ -81,7 +81,7 @@ app_ui <- function(request) {
           target = "_blank",
           "Méthode IDEA Version 4"
         ),
-        right_text = HTML("<img src='www/bandeau.png' style='width:647.69;height:92.307px;'>")
+        right_text = "\u00A9 David Carayon (INRAE)"
       )
     )
   )

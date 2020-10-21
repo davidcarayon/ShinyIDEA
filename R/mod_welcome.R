@@ -1,14 +1,17 @@
 mod_welcome_ui <- function(id){
   ns <- NS(id)
   tagList(
+    HTML("<center> <img src='../www/bandeau.png' style='width:611px;height:87px'> </center>"),
+    hr(),
     fluidRow(
       col_12(
-        bs4Jumbotron(
-          title = "Bienvenue sur ShinyIDEA !",
-          lead = includeMarkdown(app_sys("app", "docs", "welcome.md")),
-          btn_name = "Consulter le code source",
-          href = "https://github.com/davidcarayon/IDEATools",
-          status = "success"
+        bs4Card(width = 12,
+          title = NULL,
+          headerBorder = FALSE,
+          closable = FALSE,
+          collapsible = FALSE,
+          includeMarkdown(app_sys("app", "docs", "welcome.md")),
+          gradientColor = "success"
         )
       )
     ),
