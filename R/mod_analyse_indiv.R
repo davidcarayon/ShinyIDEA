@@ -188,36 +188,44 @@ mod_analyse_indiv_server <- function(input, output, session){
     })
   
     output$download_box <- renderUI({
-      bs4Card(inputID = "download_card",title = "Télécharger les résultats",width = 12,
+    
+      
+      
+      
+      
+      bs4Card(inputID = "download_card",title = "Télécharger le diagnostic complet",width = 12,
               solidHeader = TRUE, status = "info",closable = FALSE,
               div(
                 style="display:inline-block;width:100%;text-align: center;",
-                shinyWidgets::downloadBttn(
+                CustomDownloadButton(
                   "outputId",
-                  label = "Télécharger le rapport PDF",
+                  label = "Télécharger au format PDF",
                   style = "simple",
                   color = "danger",
                   size = "sm",
                   block = FALSE,
-                  no_outline = TRUE
+                  no_outline = TRUE,
+                  icon = icon("file-pdf")
                 ),
-                shinyWidgets::downloadBttn(
+                CustomDownloadButton(
                   "outputId2",
-                  label = "Télécharger au format excel",
+                  label = "Télécharger au format \u00A9Excel",
                   style = "simple",
                   color = "success",
                   size = "sm",
                   block = FALSE,
-                  no_outline = TRUE
+                  no_outline = TRUE,
+                  icon = icon("file-excel")
                 ),
-                shinyWidgets::downloadBttn(
+                CustomDownloadButton(
                   "outputId3",
-                  label = "(Expérimental) Télécharger une figure synthétique des dimensions",
+                  label = "(New!) Synthèse polaire des composantes",
                   style = "simple",
                   color = "royal",
                   size = "sm",
                   block = FALSE,
-                  no_outline = TRUE
+                  no_outline = TRUE,
+                  icon = icon("chart-pie")
                 )
               ))
       

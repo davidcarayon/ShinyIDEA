@@ -23,7 +23,7 @@ mod_welcome_ui <- function(id){
           title = "A propos de cette application",
           width = 12,
           status = "primary",
-          "L'application ShinyIDEA est un programme libre; Celui-est diffusé dans l’espoir qu’il sera utile, mais sans aucune garantie de qualité marchande ou d’adéquation à un but particulier."
+          "L'application ShinyIDEA est un programme libre. Celui-est diffusé dans l’espoir qu’il sera utile, mais sans aucune garantie de qualité marchande ou d’adéquation à un but particulier."
         )
       )
     ),

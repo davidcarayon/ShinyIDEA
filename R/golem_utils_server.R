@@ -79,4 +79,14 @@ replace_col <- function(resultat) {
 }
 
 
+CustomDownloadButton <- function(outputId, label = "Download", style = "unite", color = "primary", 
+                              size = "md", block = FALSE, no_outline = TRUE, icon = icon("download")) {
+  bttn <- actionBttn(inputId = paste0(outputId, "_bttn"), 
+                     label = tagList(tags$a(id = outputId, class = "shiny-download-link", 
+                                            href = "", target = "_blank", download = NA), label), 
+                     color = color, style = style, size = size, block = block, 
+                     no_outline = no_outline, icon = icon)
+  htmltools::tagAppendAttributes(bttn, onclick = sprintf("getElementById('%s').click()", 
+                                                         outputId))}  
+
 
