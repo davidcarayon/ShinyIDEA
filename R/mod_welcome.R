@@ -1,7 +1,7 @@
 mod_welcome_ui <- function(id){
   ns <- NS(id)
   tagList(
-    HTML("<center> <img src='../www/bandeau.png' style='width:611px;height:87px'> </center>"),
+    includeMarkdown(app_sys("app", "docs", "bandeau.md")),
     hr(),
     fluidRow(
       col_12(
