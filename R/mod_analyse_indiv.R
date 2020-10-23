@@ -101,7 +101,7 @@ mod_analyse_indiv_server <- function(input, output, session){
       req(IDEAdata())
       
       to_increase <- IDEAdata()$nodes$Global %>% tidyr::gather(key = nom_indicateur, value = valeur, -id_exploit) %>% inner_join(IDEATools::label_nodes, by = "nom_indicateur") %>% filter(level == "propriete") %>% filter(valeur %in% c("défavorable","très défavorable")) %>% 
-        pull(nom_indicateur) %>% paste(collapse = " et ")
+        pull(nom_indicateur) %>% paste(collapse = " / ")
       
       
       if(nchar(to_increase) == 0){to_increase = "Aucune"}

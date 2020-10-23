@@ -1,0 +1,1 @@
+Bienvenue sur le module d'analyses de groupe. En insérant plusieurs calculateurs IDEA en simultané, vous pourrez accéder à différentes visualisations des résultats que vous pourrez ensuite télécharger.

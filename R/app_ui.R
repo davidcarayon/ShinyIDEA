@@ -45,7 +45,7 @@ app_ui <- function(request) {
           ),
           bs4SidebarMenuItem(
             "Analyse de groupe",
-            tabName = "animate",
+            tabName = "group",
             icon = 'users'
           )
         )
@@ -68,8 +68,8 @@ app_ui <- function(request) {
             mod_analyse_indiv_ui("analyse_indiv_ui_1")
           ),
           bs4TabItem(
-            tabName = "animate",
-            # mod_animate_ui("animate_ui_1")
+            tabName = "group",
+            mod_analyse_group_ui("analyse_group_ui_1")
           )
         )
       ),
