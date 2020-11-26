@@ -209,7 +209,7 @@ mod_analyse_indiv_server <- function(input, output, session){
                 ),
                 CustomDownloadButton(
                   "outputId2",
-                  label = "Télécharger au format \u00A9Excel",
+                  label = "Télécharger au format XLSX",
                   style = "simple",
                   color = "success",
                   size = "sm",
@@ -219,13 +219,33 @@ mod_analyse_indiv_server <- function(input, output, session){
                 ),
                 CustomDownloadButton(
                   "outputId3",
-                  label = "(New!) Synthèse polaire des composantes",
+                  label = "Télécharger au format DOCX",
                   style = "simple",
-                  color = "royal",
+                  color = "primary",
                   size = "sm",
                   block = FALSE,
                   no_outline = TRUE,
-                  icon = icon("chart-pie")
+                  icon = icon("file-word")
+                ),
+                CustomDownloadButton(
+                  "outputId4",
+                  label = "Télécharger au format ODT",
+                  style = "simple",
+                  color = "primary",
+                  size = "sm",
+                  block = FALSE,
+                  no_outline = TRUE,
+                  icon = icon("file-word")
+                ),
+                CustomDownloadButton(
+                  "outputId5",
+                  label = "Télécharger au format ZIP",
+                  style = "simple",
+                  color = "warning",
+                  size = "sm",
+                  block = FALSE,
+                  no_outline = TRUE,
+                  icon = icon("file-archive")
                 )
               ))
       

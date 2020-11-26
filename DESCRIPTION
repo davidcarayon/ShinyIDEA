@@ -1,4 +1,4 @@
-Package: ShinyIDEA2
+Package: ShinyIDEA
 Title: ShinyIDEA
 Version: 0.0.0.9000
 Authors@R: person('David', 'CARAYON', email = 'david.carayon@inrae.fr', role = c('cre', 'aut'))
@@ -23,8 +23,7 @@ Imports:
     magrittr,
     tibble,
     readr,
-    pkgload,
-    shinyWidgets
+    pkgload
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
