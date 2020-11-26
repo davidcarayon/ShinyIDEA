@@ -200,53 +200,34 @@ mod_analyse_indiv_server <- function(input, output, session){
                 CustomDownloadButton(
                   "outputId",
                   label = "Télécharger au format PDF",
-                  style = "simple",
-                  color = "danger",
-                  size = "sm",
-                  block = FALSE,
-                  no_outline = TRUE,
                   icon = icon("file-pdf")
                 ),
                 CustomDownloadButton(
                   "outputId2",
                   label = "Télécharger au format XLSX",
-                  style = "simple",
-                  color = "success",
-                  size = "sm",
-                  block = FALSE,
-                  no_outline = TRUE,
                   icon = icon("file-excel")
+                ),
+                CustomDownloadButton(
+                  "outputId6",
+                  label = "Télécharger au format PPTX",
+                  icon = icon("file-powerpoint")
                 ),
                 CustomDownloadButton(
                   "outputId3",
                   label = "Télécharger au format DOCX",
-                  style = "simple",
-                  color = "primary",
-                  size = "sm",
-                  block = FALSE,
-                  no_outline = TRUE,
                   icon = icon("file-word")
                 ),
                 CustomDownloadButton(
                   "outputId4",
                   label = "Télécharger au format ODT",
-                  style = "simple",
-                  color = "primary",
-                  size = "sm",
-                  block = FALSE,
-                  no_outline = TRUE,
                   icon = icon("file-word")
                 ),
                 CustomDownloadButton(
                   "outputId5",
                   label = "Télécharger au format ZIP",
-                  style = "simple",
-                  color = "warning",
-                  size = "sm",
-                  block = FALSE,
-                  no_outline = TRUE,
                   icon = icon("file-archive")
                 )
+
               ))
       
     })
