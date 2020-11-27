@@ -42,8 +42,8 @@ mod_analyse_indiv_ui <- function(id){
           closable = FALSE,
           solidHeader = TRUE,
           includeMarkdown(app_sys("app", "docs", "explore.md")),
-          fileInput(ns("files"), "Charger votre calculateur :", accept = c(".xls",".xlsx",".json"), width = "100%", multiple = FALSE, buttonLabel = "Charger...",placeholder = "Aucun fichier chargé")
-          
+          fileInput(ns("files"), "Charger votre calculateur :", accept = c(".xls",".xlsx",".json"), width = "100%", multiple = FALSE, buttonLabel = "Charger...",placeholder = "Aucun fichier chargé"),
+          downloadButton(outputId = ns("example_data"), label = "Télécharger un exemple de données d'entrée")
         )
       )
     ),
@@ -51,7 +51,7 @@ mod_analyse_indiv_ui <- function(id){
     uiOutput(ns("result_boxes")),
     br(),
     col_12(uiOutput(ns("download_box"), width = 12))
-
+    
   )
 }
 
@@ -82,7 +82,7 @@ mod_analyse_indiv_server <- function(input, output, session){
     output$note_st <- renderbs4InfoBox({
       req(IDEAdata())
       value <- unique(subset(IDEAdata()$dataset, dimension == "Socio-Territoriale")$dimension_value)
-      bs4InfoBox(paste0(value,"/100"), title = "Durabilité Socio-Territoriale", icon = "handshake", status = "primary", width = 12)
+      bs4InfoBox(paste0(value,"/100"), title = "Durabilité Socio-\nTerritoriale", icon = "handshake", status = "primary", width = 12)
     })
     output$note_ec <- renderbs4InfoBox({
       req(IDEAdata())
@@ -186,9 +186,9 @@ mod_analyse_indiv_server <- function(input, output, session){
                  icon = ico,
                  status = color, href = "#", width = 12)
     })
-  
-    output$download_box <- renderUI({
     
+    output$download_box <- renderUI({
+      
       
       
       
@@ -198,36 +198,36 @@ mod_analyse_indiv_server <- function(input, output, session){
               div(
                 style="display:inline-block;width:100%;text-align: center;",
                 CustomDownloadButton(
-                  "outputId",
+                  ns("outputId"),
                   label = "Télécharger au format PDF",
                   icon = icon("file-pdf")
                 ),
                 CustomDownloadButton(
-                  "outputId2",
+                  ns("outputId2"),
                   label = "Télécharger au format XLSX",
                   icon = icon("file-excel")
                 ),
                 CustomDownloadButton(
-                  "outputId6",
+                  ns("outputId6"),
                   label = "Télécharger au format PPTX",
                   icon = icon("file-powerpoint")
                 ),
                 CustomDownloadButton(
-                  "outputId3",
+                  ns("outputId3"),
                   label = "Télécharger au format DOCX",
                   icon = icon("file-word")
                 ),
                 CustomDownloadButton(
-                  "outputId4",
+                  ns("outputId4"),
                   label = "Télécharger au format ODT",
                   icon = icon("file-word")
                 ),
                 CustomDownloadButton(
-                  "outputId5",
+                  ns("outputId5"),
                   label = "Télécharger au format ZIP",
                   icon = icon("file-archive")
                 )
-
+                
               ))
       
     })
@@ -277,6 +277,8 @@ mod_analyse_indiv_server <- function(input, output, session){
       )
       
     })
+    
+    
     
   })
 }

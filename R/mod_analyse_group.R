@@ -7,6 +7,7 @@
 #' @noRd 
 #'
 #' @importFrom shiny NS tagList 
+#' @importFrom shinycssloaders withSpinner
 #' @import DT
 mod_analyse_group_ui <- function(id){
   ns <- NS(id)
@@ -118,7 +119,7 @@ mod_analyse_group_server <- function(input, output, session){
                 collapsed = FALSE,
                 closable = FALSE,
                 solidHeader = TRUE,
-                plotOutput(ns("group_boxplot"))),
+                plotOutput(ns("group_boxplot")) %>% withSpinner(color="#0dc5c1")),
       
       bs4Card(inputId = ns("DTCard"),
               title = "Résultats par les propriétés",
@@ -128,7 +129,7 @@ mod_analyse_group_server <- function(input, output, session){
               collapsed = FALSE,
               closable = FALSE,
               solidHeader = TRUE,
-        DT::dataTableOutput(ns("table_prop"))
+        DT::dataTableOutput(ns("table_prop")) %>% withSpinner(color="#0dc5c1")
       )
         
 
@@ -150,24 +151,34 @@ mod_analyse_group_server <- function(input, output, session){
               div(
                 style="display:inline-block;width:100%;text-align: center;",
                 CustomDownloadButton(
-                  "outputId_group1",
+                  ns("outputId_group"),
                   label = "Télécharger au format PDF",
-                  style = "simple",
-                  color = "danger",
-                  size = "sm",
-                  block = FALSE,
-                  no_outline = TRUE,
                   icon = icon("file-pdf")
                 ),
                 CustomDownloadButton(
-                  "outputId2_group2",
-                  label = "Télécharger au format \u00A9Excel",
-                  style = "simple",
-                  color = "success",
-                  size = "sm",
-                  block = FALSE,
-                  no_outline = TRUE,
+                  ns("outputId2_group"),
+                  label = "Télécharger au format XLSX",
                   icon = icon("file-excel")
+                ),
+                CustomDownloadButton(
+                  ns("outputId6_group"),
+                  label = "Télécharger au format PPTX",
+                  icon = icon("file-powerpoint")
+                ),
+                CustomDownloadButton(
+                  ns("outputId3_group"),
+                  label = "Télécharger au format DOCX",
+                  icon = icon("file-word")
+                ),
+                CustomDownloadButton(
+                  ns("outputId4_group"),
+                  label = "Télécharger au format ODT",
+                  icon = icon("file-word")
+                ),
+                CustomDownloadButton(
+                  ns("outputId5_group"),
+                  label = "Télécharger au format ZIP",
+                  icon = icon("file-archive")
                 )
               ))
       

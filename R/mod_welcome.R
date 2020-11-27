@@ -5,13 +5,12 @@ mod_welcome_ui <- function(id){
     hr(),
     fluidRow(
       col_12(
-        bs4Card(width = 12,
-          title = NULL,
+        bs4Callout(width = 12,
+          title = "Bienvenue sur Outils IDEA",
           headerBorder = FALSE,
           closable = FALSE,
           collapsible = FALSE,
           includeMarkdown(app_sys("app", "docs", "welcome.md")),
-          gradientColor = "success"
         )
       )
     ),
@@ -33,7 +32,7 @@ mod_welcome_ui <- function(id){
         bs4UserCard(
           title = "David Carayon",
           subtitle = "Ingénieur statisticien | Développeur",
-          status = "info",
+          status = "primary",
           width = 12,
           src = "www/david.jpg",
           bs4ListGroup(
@@ -60,7 +59,7 @@ mod_welcome_ui <- function(id){
         bs4UserCard(
           title = "Frédéric Zahm",
           subtitle = "Agroéconomiste | Président du C.S. IDEA",
-          status = "info",
+          status = "primary",
           width = 12,
           src = "www/zahm.jpg",
           bs4ListGroup(
@@ -77,7 +76,7 @@ mod_welcome_ui <- function(id){
         bs4UserCard(
           title = "Sydney Girard",
           subtitle = "Ingénieur agronome | Concepteur du calculateur IDEA4",
-          status = "info",
+          status = "primary",
           width = 12,
           src = "www/girard.jpg",
           bs4ListGroup(

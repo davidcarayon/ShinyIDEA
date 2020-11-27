@@ -13,7 +13,7 @@ app_ui <- function(request) {
     
     # List the first level UI elements here 
     bs4DashPage(
-      title = "ShinyIDEA",
+      title = "Outils IDEA",
       sidebar_collapsed = FALSE,
       
       # navigation bar
@@ -25,7 +25,7 @@ app_ui <- function(request) {
       sidebar = bs4DashSidebar(
         skin = "dark",
         status = "primary",
-        title = "ShinyIDEA",
+        title = "Outils IDEA",
         brandColor = "primary",
         #src = "some_image.png",
         elevation = 3,
@@ -125,10 +125,17 @@ golem_add_external_resources <- function(){
     tags$style(
       type = 'text/css',
       '.info-box-icon.elevation-3 {color: #FFFFFF; }'),
-    
-
-    
-    tags$head(tags$style(".progress-bar{background-color:#28A745;}"))
+    tags$style(
+      HTML(".shiny-notification {
+              height: 50px;
+              width: 600px;
+              position:fixed;
+              top: calc(100% - 80px);;
+              left: calc(85% - 350px);;
+            }
+           "
+      )
+    )
     # Add here other external resources
     # for example, you can add shinyalert::useShinyalert() 
   )
