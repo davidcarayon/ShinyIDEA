@@ -12,7 +12,7 @@
 mod_analyse_group_ui <- function(id){
   ns <- NS(id)
   tagList(
- 
+    
     fluidRow(
       col_12(
         bs4Card(
@@ -29,18 +29,18 @@ mod_analyse_group_ui <- function(id){
         )
       )
     ),
-
-      uiOutput(ns("result_boxes")),
-      uiOutput(ns("download_box"))
+    
+    uiOutput(ns("result_boxes")),
+    uiOutput(ns("download_box"))
   )
 }
-    
+
 #' analyse_group Server Function
 #'
 #' @noRd 
 mod_analyse_group_server <- function(input, output, session){
   ns <- session$ns
- 
+  
   # Permet d'éviter une erreur liée au fichier "Rplots.pdf"
   pdf(NULL)
   
@@ -108,10 +108,10 @@ mod_analyse_group_server <- function(input, output, session){
       
     })
     output$result_boxes <- renderUI({
-  
-      fluidRow(  
       
-      bs4Card(inputId = ns("boxplotCard"),
+      fluidRow(  
+        
+        bs4Card(inputId = ns("boxplotCard"),
                 title = "Résultats par les dimensions",
                 status = "info",
                 width = 5,
@@ -120,29 +120,29 @@ mod_analyse_group_server <- function(input, output, session){
                 closable = FALSE,
                 solidHeader = TRUE,
                 plotOutput(ns("group_boxplot")) %>% withSpinner(color="#0dc5c1")),
-      
-      bs4Card(inputId = ns("DTCard"),
-              title = "Résultats par les propriétés",
-              status = "info",
-              width = 7,
-              collapsible = TRUE,
-              collapsed = FALSE,
-              closable = FALSE,
-              solidHeader = TRUE,
-        DT::dataTableOutput(ns("table_prop")) %>% withSpinner(color="#0dc5c1")
-      )
         
-
-      
-      
-      
+        bs4Card(inputId = ns("DTCard"),
+                title = "Résultats par les propriétés",
+                status = "info",
+                width = 7,
+                collapsible = TRUE,
+                collapsed = FALSE,
+                closable = FALSE,
+                solidHeader = TRUE,
+                DT::dataTableOutput(ns("table_prop")) %>% withSpinner(color="#0dc5c1")
+        )
+        
+        
+        
+        
+        
       )
       
       
       
     })
     
-
+    
     output$download_box <- renderUI({
       
       
@@ -151,32 +151,32 @@ mod_analyse_group_server <- function(input, output, session){
               div(
                 style="display:inline-block;width:100%;text-align: center;",
                 CustomDownloadButton(
-                  ns("outputId_group"),
+                  ns("dl_group_pdf"),
                   label = "Télécharger au format PDF",
                   icon = icon("file-pdf")
                 ),
                 CustomDownloadButton(
-                  ns("outputId2_group"),
+                  ns("dl_group_xlsx"),
                   label = "Télécharger au format XLSX",
                   icon = icon("file-excel")
                 ),
                 CustomDownloadButton(
-                  ns("outputId6_group"),
+                  ns("dl_group_pptx"),
                   label = "Télécharger au format PPTX",
                   icon = icon("file-powerpoint")
                 ),
                 CustomDownloadButton(
-                  ns("outputId3_group"),
+                  ns("dl_group_docx"),
                   label = "Télécharger au format DOCX",
                   icon = icon("file-word")
                 ),
                 CustomDownloadButton(
-                  ns("outputId4_group"),
+                  ns("dl_group_odt"),
                   label = "Télécharger au format ODT",
                   icon = icon("file-word")
                 ),
                 CustomDownloadButton(
-                  ns("outputId5_group"),
+                  ns("dl_group_zip"),
                   label = "Télécharger au format ZIP",
                   icon = icon("file-archive")
                 )
@@ -194,10 +194,10 @@ mod_analyse_group_server <- function(input, output, session){
   
   
 }
-    
+
 ## To be copied in the UI
 # mod_analyse_group_ui("analyse_group_ui_1")
-    
+
 ## To be copied in the server
 # callModule(mod_analyse_group_server, "analyse_group_ui_1")
- 
+
