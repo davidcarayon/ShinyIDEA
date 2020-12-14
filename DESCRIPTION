@@ -23,8 +23,15 @@ Imports:
     magrittr,
     tibble,
     readr,
-    pkgload
+    pkgload,
+    fresh,
+    ggiraph,
+    jsonlite,
+    openxlsx,
+    shinycssloaders,
+    shinydashboard
 Encoding: UTF-8
+Depends: R (>= 3.1.0)
 LazyData: true
 RoxygenNote: 7.1.1
 Suggests: 
