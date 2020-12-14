@@ -69,30 +69,32 @@ mod_analyse_indiv_server <- function(input, output, session){
   outdir <- tempdir()
   
   IDEAdata <- eventReactive(input$files,{
-    importIDEA(input = input$files$datapath, anonymous = FALSE)
+    diag_idea(input$files$datapath,plot_choices = "",export_type = NULL, type = "single", quiet = TRUE)
   })
   
   observeEvent(input$files, {
     
     output$note_ae <- renderbs4InfoBox({
       req(IDEAdata())
-      value <- unique(subset(IDEAdata()$dataset, dimension == "Agroécologique")$dimension_value)
+      value <- unique(subset(IDEAdata()$data$dataset, dimension_code == "A")$dimension_value)
       bs4InfoBox(paste0(value,"/100"), title = "Durabilité Agroécologique", icon = "leaf", status = "success", width = 12)
     })
     output$note_st <- renderbs4InfoBox({
       req(IDEAdata())
-      value <- unique(subset(IDEAdata()$dataset, dimension == "Socio-Territoriale")$dimension_value)
+      value <- unique(subset(IDEAdata()$data$dataset, dimension_code == "B")$dimension_value)
       bs4InfoBox(paste0(value,"/100"), title = "Durabilité Socio-\nTerritoriale", icon = "handshake", status = "primary", width = 12)
     })
     output$note_ec <- renderbs4InfoBox({
       req(IDEAdata())
-      value <- unique(subset(IDEAdata()$dataset, dimension == "Economique")$dimension_value)
+      value <- unique(subset(IDEAdata()$data$dataset, dimension_code == "C")$dimension_value)
       bs4InfoBox(paste0(value,"/100"), title = "Durabilité Economique", icon = "euro-sign", status = "warning", width = 12)
     })
     output$IDEAtext <- renderText({
       req(IDEAdata())
-      value <- min(IDEAdata()$dataset$dimension_value)
-      newdim <- IDEAdata()$dataset %>% arrange(dimension_value) %>% slice(1) %>% pull(dimension)
+      value <- min(IDEAdata()$data$dataset$dimension_value)
+      newdim <- IDEAdata()$data$dataset %>% arrange(dimension_value) %>% slice(1) %>% inner_join(IDEATools:::reference_table, by = "dimension_code") %>% pull(dimension_code) %>% unique()
+      
+      
       
       HTML(paste0("La méthode IDEA retient la note la plus faible des 3 dimensions en tant que valeur finale, puisque les dimensions ne peuvent se compenser entre elles (principe de la durabilité forte).<br> Ainsi, votre exploitation obtient la note de <b>",value,"/100 </b> avec la méthode IDEA, correspondant à la dimension <b>",newdim,"</b>."))
       
@@ -100,8 +102,8 @@ mod_analyse_indiv_server <- function(input, output, session){
     output$proptext <- renderText({
       req(IDEAdata())
       
-      to_increase <- IDEAdata()$nodes$Global %>% tidyr::gather(key = nom_indicateur, value = valeur, -id_exploit) %>% inner_join(IDEATools::label_nodes, by = "nom_indicateur") %>% filter(level == "propriete") %>% filter(valeur %in% c("défavorable","très défavorable")) %>% 
-        pull(nom_indicateur) %>% paste(collapse = " / ")
+      to_increase <- IDEAdata()$data$nodes$Global %>% tidyr::gather(key = indic_name, value = valeur) %>% inner_join(IDEATools:::reference_table, by = "indic_name") %>% filter(level == "propriete") %>% filter(valeur %in% c("défavorable","très défavorable")) %>% 
+        pull(indic_name) %>% paste(collapse = " / ")
       
       
       if(nchar(to_increase) == 0){to_increase = "Aucune"}
@@ -113,7 +115,7 @@ mod_analyse_indiv_server <- function(input, output, session){
     })
     output$prop1 <- renderbs4InfoBox({
       req(IDEAdata())
-      val <- IDEAdata()$nodes$Robustesse$Robustesse
+      val <- IDEAdata()$data$nodes$Robustesse$Robustesse
       
       color <- replace_col(val)
       
@@ -128,7 +130,7 @@ mod_analyse_indiv_server <- function(input, output, session){
     })
     output$prop2 <- renderbs4InfoBox({
       req(IDEAdata())
-      val <- IDEAdata()$nodes$Ancrage$`Ancrage territorial`
+      val <- IDEAdata()$data$nodes$Ancrage$`Ancrage territorial`
       
       color <- replace_col(val)
       
@@ -143,7 +145,7 @@ mod_analyse_indiv_server <- function(input, output, session){
     })
     output$prop3 <- renderbs4InfoBox({
       req(IDEAdata())
-      val <- IDEAdata()$nodes$Autonomie$Autonomie
+      val <- IDEAdata()$data$nodes$Autonomie$Autonomie
       
       color <- replace_col(val)
       
@@ -158,7 +160,7 @@ mod_analyse_indiv_server <- function(input, output, session){
     })
     output$prop4 <- renderbs4InfoBox({
       req(IDEAdata())
-      val <- IDEAdata()$nodes$`Responsabilité`$`Responsabilité globale`
+      val <- IDEAdata()$data$nodes$Responsabilite$`Responsabilité globale`
       
       color <- replace_col(val)
       
@@ -173,7 +175,7 @@ mod_analyse_indiv_server <- function(input, output, session){
     })
     output$prop5 <- renderbs4InfoBox({
       req(IDEAdata())
-      val <- IDEAdata()$nodes$`Capacité`$`Capacité productive et reproductive de biens et de services`
+      val <- IDEAdata()$data$nodes$Capacite$`Capacité productive et reproductive de biens et de services`
       
       color <- replace_col(val)
       

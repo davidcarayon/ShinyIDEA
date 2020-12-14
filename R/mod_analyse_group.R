@@ -48,15 +48,16 @@ mod_analyse_group_server <- function(input, output, session){
   outdir <- tempdir()
   
   IDEAcollectivedata <- eventReactive(input$dir,{
-    importIDEA(input = dirname(input$dir$datapath[[1]]), anonymous = FALSE)
+    diag_idea(dirname(input$dir$datapath[[1]]),export_type = NULL, type = "group", quiet = TRUE)
   })
   
   observeEvent(input$dir, {
     
     output$group_boxplot <- renderPlot({
       
-      df_dim <- IDEAcollectivedata()$dataset %>%
-        distinct(id_exploit,dimension,dimension_value)%>%
+      df_dim <- IDEAcollectivedata()$data$dataset %>%
+        inner_join(IDEATools:::reference_table, by = "dimension_code") %>% 
+        distinct(farm_id,dimension,dimension_value) %>%
         mutate(dimension = factor(dimension, levels = c("Agroécologique","Socio-Territoriale","Economique")))
       
       moys <- df_dim %>% group_by(dimension) %>% summarise(Moyenne = mean(dimension_value))
@@ -77,25 +78,24 @@ mod_analyse_group_server <- function(input, output, session){
     })
     output$table_prop <- DT::renderDataTable({
       
-      df <- IDEAcollectivedata()$nodes$Global %>%
-        gather(key = indicateur, value = resultat, -id_exploit) %>%
-        mutate(indicateur = replace_indicateur(indicateur)) %>%
-        inner_join(label_nodes, by = c("indicateur" = "code_indicateur")) %>%
+      df <- IDEAcollectivedata()$data$nodes$Global %>%
+        gather(key = indic, value = resultat, -farm_id) %>%
+        mutate(indic = replace_indicateur(indic)) %>%
+        inner_join(IDEATools:::reference_table, by = c("indic" = "indic_code")) %>%
         mutate(resultat = factor(resultat, levels = c("très favorable", "favorable", "intermédiaire", "défavorable", "très défavorable", "NC"))) %>%
-        mutate(nom_indicateur = ifelse(nom_indicateur == "Capacité productive et reproductive de biens et de services", yes = "Capacité productive et \n reproductive de biens et de \n services", no = nom_indicateur)) %>%
-        mutate(num_indic = parse_number(indicateur)) %>%
-        arrange(dim, num_indic) %>%
-        mutate(indicateur = factor(indicateur, levels = unique(indicateur))) %>%
+        mutate(indic_name = ifelse(indic_name == "Capacité productive et reproductive de biens et de services", yes = "Capacité productive et \n reproductive de biens et de \n services", no = indic_name)) %>%
+        arrange(dimension_code, indic_number) %>%
+        mutate(indic = factor(indic, levels = unique(indic))) %>%
         mutate(level = case_when(
           level == "indicateur" ~ "Indicateur",
           level == "propriete" ~ "Propriété"
         )) %>% 
         filter(level == "Propriété") %>% 
-        select(id_exploit,nom_indicateur,resultat) %>% 
-        spread(key = nom_indicateur, value = resultat)
+        select(farm_id,indic_name,resultat) %>% 
+        spread(key = indic_name, value = resultat)
       
-      rown <- df$id_exploit
-      df <- df %>% select(-id_exploit)
+      rown <- df$farm_id
+      df <- df %>% select(-farm_id)
       
       
       DT::datatable(df, rownames = rown, options = list(pageLength = 4)) %>% 

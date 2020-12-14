@@ -130,8 +130,8 @@ golem_add_external_resources <- function(){
               height: 50px;
               width: 600px;
               position:fixed;
-              top: calc(100% - 80px);;
-              left: calc(85% - 350px);;
+              top: calc(100% - 55px);;
+              left: calc(50% - 300px);;
             }
            "
       )

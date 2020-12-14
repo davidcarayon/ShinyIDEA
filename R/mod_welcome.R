@@ -34,7 +34,7 @@ mod_welcome_ui <- function(id){
           subtitle = "Ingénieur statisticien | Développeur",
           status = "primary",
           width = 12,
-          src = "www/david.jpg",
+          src = "www/david.png",
           bs4ListGroup(
             width = 12,
             bs4ListGroupItem(
