@@ -82,9 +82,43 @@ dlmodule <- function(input, output, session) {
                 export_type = "report", type = "single", quiet = TRUE, report_format = "pptx"
       )
       
-      incProgress(0.8)
-      
       file.copy(file.path(knitting_dir, Sys.Date(), file_name_short, paste0("Rapport_individuel_", file_name_short, ".pptx")), file)
+      
+      closeSweetAlert(session = session)
+      sendSweetAlert(
+        session = session,
+        title = " Fichier téléchargé !",
+        type = "success"
+      )
+    }
+  )
+  
+  # HTML --------------------------------------------------------------
+  output$dl_html <- downloadHandler(
+    filename = function() {
+      file_name_short <- substr(basename(tools::file_path_sans_ext(input$files$name)), start = 1, stop = 10)
+      paste0("Rapport_individuel_", file_name_short, ".html")
+    },
+    
+    content = function(file) {
+      progressSweetAlert(
+        session = session, id = "myprogress_html",
+        title = "Production du fichier en cours...",
+        display_pct = FALSE, value = 100
+      )
+      
+      file_name_short <- substr(basename(tools::file_path_sans_ext(input$files$name)), start = 1, stop = 10)
+      
+      # Defining a knitting dir in tempdir in case the user doesn't have all permissions in working dir
+      knitting_dir <- file.path(tempdir(), "IDEATools_reports")
+      if (!dir.exists(knitting_dir)) (dir.create(knitting_dir))
+      
+      diag_idea(input$files$datapath,
+                output_directory = knitting_dir, prefix = file_name_short,
+                export_type = "report", type = "single", quiet = TRUE, report_format = "html"
+      )
+      
+      file.copy(file.path(knitting_dir, Sys.Date(), file_name_short, paste0("Rapport_individuel_", file_name_short, ".html")), file)
       
       closeSweetAlert(session = session)
       sendSweetAlert(

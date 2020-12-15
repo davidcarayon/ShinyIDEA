@@ -82,6 +82,42 @@ dlmodule_group <- function(input, output, session) {
     }
   )
   
+  # HTML --------------------------------------------------------------
+  output$dl_group_html <- downloadHandler(
+    filename = function() {
+      paste0("Rapport_groupe_", length(input$dir$datapath), ".html")
+    },
+    
+    content = function(file) {
+      progressSweetAlert(
+        session = session, id = "myprogress_group_html",
+        title = "Production du fichier en cours...",
+        display_pct = FALSE, value = 100
+      )
+      
+      # Defining a knitting dir in tempdir in case the user doesn't have all permissions in working directory
+      knitting_dir <- file.path(tempdir(), "IDEATools_reports")
+      if (!dir.exists(knitting_dir)) (dir.create(knitting_dir))
+      
+      prefix <- paste0("Groupe_", length(input$dir$datapath))
+      
+      diag_idea(dirname(input$dir$datapath[[1]]),
+                output_directory = knitting_dir,
+                export_type = "report", type = "group", quiet = TRUE, report_format = "html"
+      )
+      
+      
+      file.copy(file.path(knitting_dir, Sys.Date(), prefix, paste0("Rapport_groupe_", length(input$dir$datapath), ".html")), file)
+      
+      closeSweetAlert(session = session)
+      sendSweetAlert(
+        session = session,
+        title = " Fichier téléchargé !",
+        type = "success"
+      )
+    }
+  )
+  
   # Word --------------------------------------------------------------
   output$dl_group_docx <- downloadHandler(
     filename = function() {

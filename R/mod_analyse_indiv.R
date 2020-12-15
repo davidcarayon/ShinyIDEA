@@ -211,32 +211,37 @@ mod_analyse_indiv_server <- function(input, output, session) {
           style = "display:inline-block;width:100%;text-align: center;",
           CustomDownloadButton(
             ns("dl_pdf"),
-            label = "Télécharger au format PDF",
+            label = "Format PDF",
             icon = icon("file-pdf")
           ),
           CustomDownloadButton(
             ns("dl_xlsx"),
-            label = "Télécharger au format XLSX",
+            label = "Format XLSX",
             icon = icon("file-excel")
           ),
           CustomDownloadButton(
             ns("dl_pptx"),
-            label = "Télécharger au format PPTX",
+            label = "Format PPTX",
             icon = icon("file-powerpoint")
           ),
           CustomDownloadButton(
             ns("dl_docx"),
-            label = "Télécharger au format DOCX",
+            label = "Format DOCX",
             icon = icon("file-word")
           ),
           CustomDownloadButton(
             ns("dl_odt"),
-            label = "Télécharger au format ODT",
+            label = "Format ODT",
             icon = icon("file-word")
           ),
           CustomDownloadButton(
+            ns("dl_html"),
+            label = "Format HTML",
+            icon = icon("file-code")
+          ),
+          CustomDownloadButton(
             ns("dl_zip"),
-            label = "Télécharger au format ZIP",
+            label = "Format ZIP",
             icon = icon("file-archive")
           )
         )
