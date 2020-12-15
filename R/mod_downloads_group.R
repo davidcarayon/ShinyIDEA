@@ -18,7 +18,7 @@ dlmodule_group <- function(input, output, session) {
     content = function(file) {
       progressSweetAlert(
         session = session, id = "myprogress_group_pdf",
-        title = "Production du fichier en cours...",
+        title = "Production du fichier en cours. Temps estimé : ~20s",
         display_pct = FALSE, value = 100
       )
       
@@ -30,9 +30,10 @@ dlmodule_group <- function(input, output, session) {
       
       diag_idea(dirname(input$dir$datapath[[1]]),
                 output_directory = knitting_dir,
-                export_type = "report", type = "group", quiet = TRUE, report_format = "pdf"
+                export_type = "report", type = "group", quiet = TRUE, report_format = "html"
       )
       
+      pagedown::chrome_print(file.path(knitting_dir, Sys.Date(), prefix, paste0("Rapport_groupe_", length(input$dir$datapath), ".html")))
       
       file.copy(file.path(knitting_dir, Sys.Date(), prefix, paste0("Rapport_groupe_", length(input$dir$datapath), ".pdf")), file)
       
@@ -55,7 +56,7 @@ dlmodule_group <- function(input, output, session) {
     content = function(file) {
       progressSweetAlert(
         session = session, id = "myprogress_group_pptx",
-        title = "Production du fichier en cours...",
+        title = "Production du fichier en cours. Temps estimé : ~20s",
         display_pct = FALSE, value = 100
       )
       
@@ -91,7 +92,7 @@ dlmodule_group <- function(input, output, session) {
     content = function(file) {
       progressSweetAlert(
         session = session, id = "myprogress_group_html",
-        title = "Production du fichier en cours...",
+        title = "Production du fichier en cours. Temps estimé : ~20s",
         display_pct = FALSE, value = 100
       )
       
@@ -127,7 +128,7 @@ dlmodule_group <- function(input, output, session) {
     content = function(file) {
       progressSweetAlert(
         session = session, id = "myprogress_group_docx",
-        title = "Production du fichier en cours...",
+        title = "Production du fichier en cours. Temps estimé : ~20s",
         display_pct = FALSE, value = 100
       )
       
@@ -163,7 +164,7 @@ dlmodule_group <- function(input, output, session) {
     content = function(file) {
       progressSweetAlert(
         session = session, id = "myprogress_group_odt",
-        title = "Production du fichier en cours...",
+        title = "Production du fichier en cours. Temps estimé : ~20s",
         display_pct = FALSE, value = 100
       )
       
@@ -199,7 +200,7 @@ dlmodule_group <- function(input, output, session) {
     content = function(file) {
       progressSweetAlert(
         session = session, id = "myprogress_group_zip",
-        title = "Production du fichier en cours...",
+        title = "Production du fichier en cours. Temps estimé : ~20s",
         display_pct = FALSE, value = 100
       )
       
@@ -240,7 +241,7 @@ dlmodule_group <- function(input, output, session) {
     content = function(file) {
       progressSweetAlert(
         session = session, id = "myprogress_group_xlsx",
-        title = "Production du fichier en cours...",
+        title = "Production du fichier en cours. Temps estimé : ~20s",
         display_pct = FALSE, value = 100
       )
       
