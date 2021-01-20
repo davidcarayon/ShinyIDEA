@@ -210,11 +210,6 @@ mod_analyse_indiv_server <- function(input, output, session) {
         div(
           style = "display:inline-block;width:100%;text-align: center;",
           CustomDownloadButton(
-            ns("dl_pdf"),
-            label = "Format PDF",
-            icon = icon("file-pdf")
-          ),
-          CustomDownloadButton(
             ns("dl_xlsx"),
             label = "Format XLSX",
             icon = icon("file-excel")
