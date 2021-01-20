@@ -16,34 +16,49 @@ dlmodule_group <- function(input, output, session) {
     },
     
     content = function(file) {
+      
       progressSweetAlert(
-        session = session, id = "myprogress_group_pdf",
-        title = "Production du fichier en cours. Temps estimé : ~20s",
+        session = session, id = "myprogress_pdf",
+        title = "Production du fichier en cours. Temps estimé : ~25s",
         display_pct = FALSE, value = 100
       )
       
-      # Defining a knitting dir in tempdir in case the user doesn't have all permissions in working directory
+      # Defining a knitting dir in tempdir in case the user doesn't have all permissions in working dir
       knitting_dir <- file.path(tempdir(), "IDEATools_reports")
       if (!dir.exists(knitting_dir)) (dir.create(knitting_dir))
       
-      prefix <- paste0("Groupe_", length(input$dir$datapath))
+      tempReport <- file.path(knitting_dir, "rapport_groupe.Rmd")
+      template <- app_sys("app", "utils", "rapport_groupe.Rmd")
       
-      diag_idea(dirname(input$dir$datapath[[1]]),
-                output_directory = knitting_dir,
-                export_type = "report", type = "group", quiet = TRUE, report_format = "html"
+      tempStyle <- file.path(knitting_dir, "bandeau.png")
+      style_folder <- app_sys("app", "utils", "bandeau.png")
+      
+      file.copy(template, tempReport, overwrite = TRUE)
+      file.copy(style_folder, tempStyle, overwrite = TRUE)
+      
+      newdata <- diag_idea(dirname(input$dir$datapath[[1]]), export_type = NULL, type = "group", quiet = TRUE)
+      
+      # Définition des paramètres pour le rendu
+      params <- list(data = newdata,
+                     outdir = knitting_dir,
+                     dpi = 320)
+      
+      # Rendu du document dans un sous-environnement isolé
+      rmarkdown::render(tempReport, output_file = file,
+                        params = params,
+                        envir = new.env(parent = globalenv())
       )
       
-      pagedown::chrome_print(file.path(knitting_dir, Sys.Date(), prefix, paste0("Rapport_groupe_", length(input$dir$datapath), ".html")))
-      
-      file.copy(file.path(knitting_dir, Sys.Date(), prefix, paste0("Rapport_groupe_", length(input$dir$datapath), ".pdf")), file)
-      
       closeSweetAlert(session = session)
+      
       sendSweetAlert(
         session = session,
         title = " Fichier téléchargé !",
         type = "success"
       )
+      
     }
+
   )
   
   

@@ -1,0 +1,276 @@
+---
+title: "Diagnostic IDEA4"
+date: "Analyse du `r format(Sys.Date(), '%d %B %Y')`"
+output:
+  pdf_document:
+    highlight: zenburn
+    latex_engine: xelatex
+    number_sections: yes
+    toc: yes
+    toc_depth: 3
+    keep_tex: true
+header-includes:
+- \usepackage[french]{babel}
+- \usepackage{lastpage}
+- \usepackage{float}
+- \usepackage{graphicx}
+- \usepackage{caption}
+- \usepackage{tocloft}
+- \renewcommand{\familydefault}{\sfdefault}
+- \renewcommand\cftsecfont{\Large}
+- \renewcommand\cftsubsecfont{\large}
+- \renewcommand\cftsubsubsecfont{\large}
+- \renewcommand\cftsecpagefont{\Large}
+- \captionsetup[figure]{font=large}
+- \usepackage{fancyhdr}
+- \pagestyle{fancy}
+- \fancyfoot[C]{Diagnostic IDEA4 - `r format(Sys.Date(), "%d %B %Y")`}
+- \fancyfoot[R]{Page \thepage / \pageref{LastPage}}
+- \fancyhead[L,C,R]{}
+subtitle: Eléments de sortie d'analyse individuelle - Version 1.0
+params:
+  outdir : "tmp"
+  data: "data"
+  dpi: 320
+---
+
+```{r setup, include=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE, out.width = "100%", fig.pos = "H")
+options(shiny.maxRequestSize=30*1024^2)
+```
+
+
+```{r ressources}
+ref_table <- IDEATools:::reference_table
+```
+
+```{r input, include = FALSE}
+outdir <- params$outdir
+IDEAdata <- params$data
+metadata <- IDEAdata$data$metadata
+
+write_idea(IDEAdata,output_directory = outdir,type = "local", prefix = "EA", quiet = TRUE, dpi = params$dpi)
+```
+
+```{r rempla_dim, include = FALSE}
+v <- "EA"
+prefix <- "EA"
+
+ff <- file.path(outdir,Sys.Date(),v,"Dimensions",paste0(v,"_","Composantes polarisées.png"))
+file.rename(from = ff, to = file.path(outdir,Sys.Date(),v,"Dimensions",paste0(v,"_","POL.png")))
+
+ff <- file.path(outdir,Sys.Date(),v,"Dimensions",paste0(v,"_","Indicateurs Agroécologiques.png"))
+file.rename(from = ff, to = file.path(outdir,Sys.Date(),v,"Dimensions",paste0(v,"_","indic_ae.png")))
+
+ff <- file.path(outdir,Sys.Date(),v,"Dimensions",paste0(v,"_","Indicateurs Socio-Territoriaux.png"))
+file.rename(from = ff, to = file.path(outdir,Sys.Date(),v,"Dimensions",paste0(v,"_","indic_st.png")))
+
+ff <- file.path(outdir,Sys.Date(),v,"Dimensions",paste0(v,"_","Indicateurs Economiques.png"))
+file.rename(from = ff, to = file.path(outdir,Sys.Date(),v,"Dimensions",paste0(v,"_","indic_ec.png")))
+```
+
+```{r rempla_prop, include = FALSE}
+v <- "EA"
+prefix <- "EA"
+
+ff <- file.path(outdir,Sys.Date(),v,"Propriétés","Arbres éclairés",paste0(v,"_","Ancrage Territorial.pdf"))
+file.rename(from = ff, to = file.path(outdir,Sys.Date(),v,"Propriétés","Arbres éclairés",paste0(v,"_","Ancrage.pdf")))
+
+ff <- file.path(outdir,Sys.Date(),v,"Propriétés","Arbres éclairés",paste0(v,"_","Capacité productive et reproductive de biens et de services.pdf"))
+file.rename(from = ff, to = file.path(outdir,Sys.Date(),v,"Propriétés","Arbres éclairés",paste0(v,"_","CAP.pdf")))
+
+ff <- file.path(outdir,Sys.Date(),v,"Propriétés","Arbres éclairés",paste0(v,"_","Responsabilité globale.pdf"))
+file.rename(from = ff, to = file.path(outdir,Sys.Date(),v,"Propriétés","Arbres éclairés",paste0(v,"_","RESP.pdf")))
+
+ff <- file.path(outdir,Sys.Date(),v,"Propriétés","Arbres éclairés",paste0(v,"_","Arbre synthétique.pdf"))
+file.rename(from = ff, to = file.path(outdir,Sys.Date(),v,"Propriétés","Arbres éclairés",paste0(v,"_","SYNTH.pdf")))
+
+ff <- file.path(outdir,Sys.Date(),v,"Propriétés","Radars",paste0(v,"_","Ancrage Territorial.png"))
+file.rename(from = ff, to = file.path(outdir,Sys.Date(),v,"Propriétés","Radars",paste0(v,"_","Ancrage.png")))
+
+ff <- file.path(outdir,Sys.Date(),v,"Propriétés","Radars",paste0(v,"_","Capacité productive et reproductive de biens et de services.png"))
+file.rename(from = ff, to = file.path(outdir,Sys.Date(),v,"Propriétés","Radars",paste0(v,"_","CAP.png")))
+
+ff <- file.path(outdir,Sys.Date(),v,"Propriétés","Radars",paste0(v,"_","Responsabilité globale.png"))
+file.rename(from = ff, to = file.path(outdir,Sys.Date(),v,"Propriétés","Radars",paste0(v,"_","RESP.png")))
+
+ff <- file.path(outdir,Sys.Date(),v,"Propriétés","Arbres éclairés",paste0(v,"_","Arbre global.pdf"))
+file.rename(from = ff, to = file.path(outdir,Sys.Date(),v,"Propriétés","Arbres éclairés",paste0(v,"_","global.pdf")))
+
+
+```
+
+```{r results = "asis"}
+nom_files <- metadata$MTD_01
+cat(paste0("\\fancyfoot[L]{Exploitation : ",nom_files,"}"))
+```
+
+```{r table}
+tab <- metadata %>%
+  dplyr::bind_cols() %>% 
+  tidyr::gather(key = indic_code, value = valeur) %>%
+  dplyr::inner_join(ref_table, by ="indic_code") %>%
+  dplyr::select(`Métadonnée` = indic_name, Valeur = valeur) %>%
+  dplyr::rowwise() %>%
+  dplyr::mutate(Valeur = tidyr::replace_na(Valeur, "Iconnu(e)")) %>% 
+  dplyr::ungroup()
+
+ knitr::kable(tab)
+```
+
+
+```{r}
+knitr::include_graphics("bandeau.png", auto_pdf = TRUE)
+```
+
+\newpage
+
+# Lecture de la durabilité : approche par les trois dimensions de la durabilité
+
+## Résultats globaux pour les trois dimensions
+
+```{r}
+min_val <- min(IDEAdata$data$dataset$dimension_value)
+```
+
+\large
+
+La note finale d'IDEA4 obtenue pour cette exploitation est de **`r min_val` / 100** (note la plus faible des trois dimensions).
+
+<br>
+
+\large
+
+```{r  fig.width = 9.11, fig.height=5.6, fig.cap = "Notes obtenues pour chaque dimension de la durabilité"}
+knitr::include_graphics(file.path(outdir,Sys.Date(),prefix,"Dimensions",paste0(prefix,"_","Dimensions.png")))
+```
+
+\newpage
+
+## Résultats lus selon les 13 composantes (histogramme)
+
+<br>
+
+```{r fig.cap= "Notes de durabilité obtenues pour les 13 composantes", fig.width = 13.69, fig.height=10.5}
+knitr::include_graphics(file.path(outdir,Sys.Date(),prefix,"Dimensions",paste0(prefix,"_","Composantes.png")))
+```
+
+\newpage
+
+## Résultats lus selon les 13 composantes (diagramme polarisé)
+
+```{r fig.cap= "Version polarisée des résultats lus selon les 13 composantes", fig.width = 13, fig.height=13}
+knitr::include_graphics(file.path(outdir,Sys.Date(),prefix,"Dimensions",paste0(prefix,"_","POL.png")))
+```
+
+\newpage
+
+## Résultats détaillés par indicateur
+
+### Indicateurs agroécologiques
+
+```{r fig.cap= "Notes obtenues pour les indicateurs agroécologiques, regroupés par composante", fig.width = 10.69, fig.height=12}
+knitr::include_graphics(file.path(outdir,Sys.Date(),prefix,"Dimensions",paste0(prefix,"_","indic_ae.png")))
+```
+
+\newpage
+
+### Indicateurs socio-territoriaux
+
+```{r fig.cap= "Notes obtenues pour les indicateurs socio-territoriaux, regroupés par composante", fig.width = 10.69, fig.height=12.5}
+knitr::include_graphics(file.path(outdir,Sys.Date(),prefix,"Dimensions",paste0(prefix,"_","indic_st.png")))
+```
+
+\newpage
+
+### Indicateurs économiques
+
+```{r fig.cap= "Notes obtenues pour les indicateurs économiques, regroupés par composante", fig.width = 10.69, fig.height=9}
+knitr::include_graphics(file.path(outdir,Sys.Date(),prefix,"Dimensions",paste0(prefix,"_","indic_ec.png")))
+```
+
+\newpage
+
+# La seconde lecture par les propriétés de la durabilité
+
+## Les cinq arbres éclairés des propriétés
+
+\center
+
+\rotatebox{270}{
+
+\begin{minipage}{0.85\textheight}
+
+
+```{r fig.cap= 'Arbre éclairé de la propriété "Ancrage territorial"'}
+knitr::include_graphics(file.path(outdir,Sys.Date(),prefix,"Propriétés","Arbres éclairés",paste0(prefix,"_","Ancrage.pdf")), auto_pdf = TRUE)
+```
+
+\end{minipage}}
+
+\rotatebox{270}{
+\begin{minipage}{\textheight}
+```{r fig.cap= 'Arbre éclairé de la propriété "Autonomie"'}
+knitr::include_graphics(file.path(outdir,Sys.Date(),prefix,"Propriétés","Arbres éclairés",paste0(prefix,"_","Autonomie.pdf")))
+```
+\end{minipage}}
+
+\rotatebox{270}{
+\begin{minipage}{\textheight}
+```{r fig.cap= 'Arbre éclairé de la propriété "Capacité productive et reproductive de biens et services"'}
+knitr::include_graphics(file.path(outdir,Sys.Date(),prefix,"Propriétés","Arbres éclairés",paste0(prefix,"_","CAP.pdf")), auto_pdf = TRUE)
+```
+\end{minipage}}
+
+\rotatebox{270}{
+\begin{minipage}{\textheight}
+```{r fig.cap= 'Arbre éclairé de la propriété "Responsabilité globale"'}
+knitr::include_graphics(file.path(outdir,Sys.Date(),prefix,"Propriétés","Arbres éclairés",paste0(prefix,"_","RESP.pdf")))
+```
+\end{minipage}}
+
+\rotatebox{270}{
+\begin{minipage}{\textheight}
+```{r fig.cap= 'Arbre éclairé de la propriété "Robustesse"'}
+knitr::include_graphics(file.path(outdir,Sys.Date(),prefix,"Propriétés","Arbres éclairés",paste0(prefix,"_","Robustesse.pdf")), auto_pdf = TRUE)
+```
+\end{minipage}}
+
+\rotatebox{270}{
+\begin{minipage}{\textheight}
+```{r fig.cap= 'Arbre éclairé global de la lecture par les propriétés'}
+knitr::include_graphics(file.path(outdir,Sys.Date(),prefix,"Propriétés","Arbres éclairés",paste0(prefix,"_","global.pdf")))
+```
+\end{minipage}}
+
+\rotatebox{270}{
+\begin{minipage}{\textheight}
+```{r fig.cap= "Synthèse de la lecture par les propriétés avec un focus sur les premières branches d'agrégation"}
+knitr::include_graphics(file.path(outdir,Sys.Date(),prefix,"Propriétés","Arbres éclairés",paste0(prefix,"_","SYNTH.pdf")))
+```
+\end{minipage}}
+
+## Diagamme radar des scores obtenus au sein de chaque propriété
+
+## Diagrammes radar des notes obtenues au sein de chaque propriété
+
+
+```{r fig.cap= 'Pourcentage du score maximal obtenu pour chaque indicateur rattaché à la propriété "Angrage territorial"', fig.width = 16.1, fig.height=7.61}
+knitr::include_graphics(file.path(outdir,Sys.Date(),prefix,"Propriétés","Radars",paste0(prefix,"_","Ancrage.png")))
+```
+
+```{r fig.cap= 'Pourcentage du score maximal obtenu pour chaque indicateur rattaché à la propriété "Autonomie"', fig.width = 16.1, fig.height=7.61}
+knitr::include_graphics(file.path(outdir,Sys.Date(),prefix,"Propriétés","Radars",paste0(prefix,"_","Autonomie.png")))
+```
+
+```{r fig.cap= 'Pourcentage du score maximal obtenu pour chaque indicateur rattaché à la propriété "Capacité productive et reproductive de biens et de services"', fig.width = 16.1, fig.height=7.61}
+knitr::include_graphics(file.path(outdir,Sys.Date(),prefix,"Propriétés","Radars",paste0(prefix,"_","CAP.png")))
+```
+
+```{r fig.cap= 'Pourcentage du score maximal obtenu pour chaque indicateur rattaché à la propriété "Responsabilité globale"', fig.width = 16.1, fig.height=7.61}
+knitr::include_graphics(file.path(outdir,Sys.Date(),prefix,"Propriétés","Radars",paste0(prefix,"_","RESP.png")))
+```
+
+```{r fig.cap= 'Pourcentage du score maximal obtenu pour chaque indicateur rattaché à la propriété "Robustesse"', fig.width = 16.1, fig.height=7.61}
+knitr::include_graphics(file.path(outdir,Sys.Date(),prefix,"Propriétés","Radars",paste0(prefix,"_","Robustesse.png")))
+```
