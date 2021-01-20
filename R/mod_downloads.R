@@ -41,10 +41,10 @@ dlmodule <- function(input, output, session) {
       
       diag_idea(input$files$datapath,
                 output_directory = knitting_dir, prefix = file_name_short,
-                export_type = "report", type = "single", quiet = TRUE, report_format = "pdf"
+                export_type = "report", type = "single", quiet = TRUE, report_format = "html"
       )
       
-      # pagedown::chrome_print(file.path(knitting_dir, Sys.Date(), file_name_short, paste0("Rapport_individuel_", file_name_short, ".html")))
+      pagedown::chrome_print(file.path(knitting_dir, Sys.Date(), file_name_short, paste0("Rapport_individuel_", file_name_short, ".html")))
       
       file.copy(file.path(knitting_dir, Sys.Date(), file_name_short, paste0("Rapport_individuel_", file_name_short, ".pdf")), file)
       
