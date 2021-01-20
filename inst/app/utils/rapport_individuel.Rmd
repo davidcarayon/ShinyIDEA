@@ -73,17 +73,36 @@ file.rename(from = ff, to = file.path(outdir,Sys.Date(),v,"Dimensions",paste0(v,
 v <- "EA"
 prefix <- "EA"
 
+if(!dir.exists(file.path(outdir,Sys.Date(),v,"Propriétés","trees"))) {dir.create(file.path(outdir,Sys.Date(),v,"Propriétés","trees"))}
+
 ff <- file.path(outdir,Sys.Date(),v,"Propriétés","Arbres éclairés",paste0(v,"_","Ancrage Territorial.pdf"))
-file.rename(from = ff, to = file.path(outdir,Sys.Date(),v,"Propriétés","Arbres éclairés",paste0(v,"_","Ancrage.pdf")))
+final <- file.path(outdir,Sys.Date(),v,"Propriétés","trees",paste0(v,"_","Ancrage.pdf"))
+file.copy(ff, final, overwrite = TRUE)
 
 ff <- file.path(outdir,Sys.Date(),v,"Propriétés","Arbres éclairés",paste0(v,"_","Capacité productive et reproductive de biens et de services.pdf"))
-file.rename(from = ff, to = file.path(outdir,Sys.Date(),v,"Propriétés","Arbres éclairés",paste0(v,"_","CAP.pdf")))
+final <- file.path(outdir,Sys.Date(),v,"Propriétés","trees",paste0(v,"_","CAP.pdf"))
+file.copy(ff, final, overwrite = TRUE)
 
 ff <- file.path(outdir,Sys.Date(),v,"Propriétés","Arbres éclairés",paste0(v,"_","Responsabilité globale.pdf"))
-file.rename(from = ff, to = file.path(outdir,Sys.Date(),v,"Propriétés","Arbres éclairés",paste0(v,"_","RESP.pdf")))
+final <- file.path(outdir,Sys.Date(),v,"Propriétés","trees",paste0(v,"_","RESP.pdf"))
+file.copy(ff, final, overwrite = TRUE)
+
+ff <- file.path(outdir,Sys.Date(),v,"Propriétés","Arbres éclairés",paste0(v,"_","Robustesse.pdf"))
+final <- file.path(outdir,Sys.Date(),v,"Propriétés","trees",paste0(v,"_","Robustesse.pdf"))
+file.copy(ff, final, overwrite = TRUE)
+
+ff <- file.path(outdir,Sys.Date(),v,"Propriétés","Arbres éclairés",paste0(v,"_","Autonomie.pdf"))
+final <- file.path(outdir,Sys.Date(),v,"Propriétés","trees",paste0(v,"_","Autonomie.pdf"))
+file.copy(ff, final, overwrite = TRUE)
 
 ff <- file.path(outdir,Sys.Date(),v,"Propriétés","Arbres éclairés",paste0(v,"_","Arbre synthétique.pdf"))
-file.rename(from = ff, to = file.path(outdir,Sys.Date(),v,"Propriétés","Arbres éclairés",paste0(v,"_","SYNTH.pdf")))
+final <- file.path(outdir,Sys.Date(),v,"Propriétés","trees",paste0(v,"_","SYNTH.pdf"))
+file.copy(ff, final, overwrite = TRUE)
+
+ff <- file.path(outdir,Sys.Date(),v,"Propriétés","Arbres éclairés",paste0(v,"_","Arbre global.pdf"))
+final <- file.path(outdir,Sys.Date(),v,"Propriétés","trees",paste0(v,"_","global.pdf"))
+file.copy(ff, final, overwrite = TRUE)
+
 
 ff <- file.path(outdir,Sys.Date(),v,"Propriétés","Radars",paste0(v,"_","Ancrage Territorial.png"))
 file.rename(from = ff, to = file.path(outdir,Sys.Date(),v,"Propriétés","Radars",paste0(v,"_","Ancrage.png")))
@@ -93,10 +112,6 @@ file.rename(from = ff, to = file.path(outdir,Sys.Date(),v,"Propriétés","Radars
 
 ff <- file.path(outdir,Sys.Date(),v,"Propriétés","Radars",paste0(v,"_","Responsabilité globale.png"))
 file.rename(from = ff, to = file.path(outdir,Sys.Date(),v,"Propriétés","Radars",paste0(v,"_","RESP.png")))
-
-ff <- file.path(outdir,Sys.Date(),v,"Propriétés","Arbres éclairés",paste0(v,"_","Arbre global.pdf"))
-file.rename(from = ff, to = file.path(outdir,Sys.Date(),v,"Propriétés","Arbres éclairés",paste0(v,"_","global.pdf")))
-
 
 ```
 
@@ -203,7 +218,7 @@ knitr::include_graphics(file.path(outdir,Sys.Date(),prefix,"Dimensions",paste0(p
 
 
 ```{r fig.cap= 'Arbre éclairé de la propriété "Ancrage territorial"'}
-knitr::include_graphics(file.path(outdir,Sys.Date(),prefix,"Propriétés","Arbres éclairés",paste0(prefix,"_","Ancrage.pdf")), auto_pdf = TRUE)
+knitr::include_graphics(file.path(outdir,Sys.Date(),prefix,"Propriétés","trees",paste0(prefix,"_","Ancrage.pdf")), auto_pdf = TRUE)
 ```
 
 \end{minipage}}
@@ -211,42 +226,42 @@ knitr::include_graphics(file.path(outdir,Sys.Date(),prefix,"Propriétés","Arbre
 \rotatebox{270}{
 \begin{minipage}{\textheight}
 ```{r fig.cap= 'Arbre éclairé de la propriété "Autonomie"'}
-knitr::include_graphics(file.path(outdir,Sys.Date(),prefix,"Propriétés","Arbres éclairés",paste0(prefix,"_","Autonomie.pdf")))
+knitr::include_graphics(file.path(outdir,Sys.Date(),prefix,"Propriétés","trees",paste0(prefix,"_","Autonomie.pdf")))
 ```
 \end{minipage}}
 
 \rotatebox{270}{
 \begin{minipage}{\textheight}
 ```{r fig.cap= 'Arbre éclairé de la propriété "Capacité productive et reproductive de biens et services"'}
-knitr::include_graphics(file.path(outdir,Sys.Date(),prefix,"Propriétés","Arbres éclairés",paste0(prefix,"_","CAP.pdf")), auto_pdf = TRUE)
+knitr::include_graphics(file.path(outdir,Sys.Date(),prefix,"Propriétés","trees",paste0(prefix,"_","CAP.pdf")), auto_pdf = TRUE)
 ```
 \end{minipage}}
 
 \rotatebox{270}{
 \begin{minipage}{\textheight}
 ```{r fig.cap= 'Arbre éclairé de la propriété "Responsabilité globale"'}
-knitr::include_graphics(file.path(outdir,Sys.Date(),prefix,"Propriétés","Arbres éclairés",paste0(prefix,"_","RESP.pdf")))
+knitr::include_graphics(file.path(outdir,Sys.Date(),prefix,"Propriétés","trees",paste0(prefix,"_","RESP.pdf")))
 ```
 \end{minipage}}
 
 \rotatebox{270}{
 \begin{minipage}{\textheight}
 ```{r fig.cap= 'Arbre éclairé de la propriété "Robustesse"'}
-knitr::include_graphics(file.path(outdir,Sys.Date(),prefix,"Propriétés","Arbres éclairés",paste0(prefix,"_","Robustesse.pdf")), auto_pdf = TRUE)
+knitr::include_graphics(file.path(outdir,Sys.Date(),prefix,"Propriétés","trees",paste0(prefix,"_","Robustesse.pdf")), auto_pdf = TRUE)
 ```
 \end{minipage}}
 
 \rotatebox{270}{
 \begin{minipage}{\textheight}
 ```{r fig.cap= 'Arbre éclairé global de la lecture par les propriétés'}
-knitr::include_graphics(file.path(outdir,Sys.Date(),prefix,"Propriétés","Arbres éclairés",paste0(prefix,"_","global.pdf")))
+knitr::include_graphics(file.path(outdir,Sys.Date(),prefix,"Propriétés","trees",paste0(prefix,"_","global.pdf")))
 ```
 \end{minipage}}
 
 \rotatebox{270}{
 \begin{minipage}{\textheight}
 ```{r fig.cap= "Synthèse de la lecture par les propriétés avec un focus sur les premières branches d'agrégation"}
-knitr::include_graphics(file.path(outdir,Sys.Date(),prefix,"Propriétés","Arbres éclairés",paste0(prefix,"_","SYNTH.pdf")))
+knitr::include_graphics(file.path(outdir,Sys.Date(),prefix,"Propriétés","trees",paste0(prefix,"_","SYNTH.pdf")))
 ```
 \end{minipage}}
 
