@@ -36,32 +36,18 @@ dlmodule <- function(input, output, session) {
         display_pct = FALSE, value = 100
       )
       
+      file_name_short <- substr(basename(tools::file_path_sans_ext(input$files$name)), start = 1, stop = 10)
+      
       # Defining a knitting dir in tempdir in case the user doesn't have all permissions in working dir
       knitting_dir <- file.path(tempdir(), "IDEATools_reports")
       if (!dir.exists(knitting_dir)) (dir.create(knitting_dir))
       
-      tempReport <- file.path(knitting_dir, "rapport_individuel.Rmd")
-      template <- app_sys("app", "utils", "rapport_individuel.Rmd")
-      
-      tempStyle <- file.path(knitting_dir, "bandeau.png")
-      style_folder <- app_sys("app", "utils", "bandeau.png")
-      
-      file.copy(template, tempReport, overwrite = TRUE)
-      file.copy(style_folder, tempStyle, overwrite = TRUE)
-      
-      newdata <- diag_idea(input$files$datapath, export_type = NULL, type = "single", quiet = TRUE)
-        
-      # Définition des paramètres pour le rendu
-      params <- list(data = newdata,
-                     outdir = knitting_dir,
-                     dpi = 320)
-    
-      
-      # Rendu du document dans un sous-environnement isolé
-      rmarkdown::render(tempReport, output_file = file,
-             params = params,
-             envir = new.env(parent = globalenv())
+      diag_idea(input$files$datapath,
+                output_directory = knitting_dir, prefix = file_name_short,
+                export_type = "report", type = "single", quiet = TRUE, report_format = "pdf"
       )
+      
+      file.copy(file.path(knitting_dir, Sys.Date(), file_name_short, paste0("Rapport_individuel_", file_name_short, ".pdf")), file)
 
       closeSweetAlert(session = session)
       sendSweetAlert(

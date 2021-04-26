@@ -39,7 +39,7 @@ mod_analyse_indiv_ui <- function(id) {
           closable = FALSE,
           solidHeader = TRUE,
           includeMarkdown(app_sys("app", "docs", "explore.md")),
-          fileInput(ns("files"), "Charger votre calculateur :", accept = c(".xls", ".xlsx", ".json"), width = "100%", multiple = FALSE, buttonLabel = "Charger...", placeholder = "Aucun fichier chargé"),
+          fileInput(ns("files"), "Charger votre calculateur :", accept = c(".xls", ".xlsx", ".json",".zip"), width = "100%", multiple = FALSE, buttonLabel = "Charger...", placeholder = "Aucun fichier chargé"),
           downloadButton(outputId = ns("example_data"), label = "Télécharger un exemple de données d'entrée")
         )
       )
@@ -68,6 +68,8 @@ mod_analyse_indiv_server <- function(input, output, session) {
   })
   
   observeEvent(input$files, {
+    
+    
     output$note_ae <- renderbs4InfoBox({
       req(IDEAdata())
       value <- unique(subset(IDEAdata()$data$dataset, dimension_code == "A")$dimension_value)
@@ -209,6 +211,11 @@ mod_analyse_indiv_server <- function(input, output, session) {
         solidHeader = TRUE, status = "info", closable = FALSE,
         div(
           style = "display:inline-block;width:100%;text-align: center;",
+          CustomDownloadButton(
+            ns("dl_pdf"),
+            label = "Format PDF",
+            icon = icon("file-pdf")
+          ),
           CustomDownloadButton(
             ns("dl_xlsx"),
             label = "Format XLSX",
